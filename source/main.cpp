@@ -1,9 +1,7 @@
-#include <iostream>
-
-using namespace std;
+#include "application/application.h"
 
 int main()
 {
-    cout << "Hello World!" << endl;
-    return 0;
+    Application a("TinyMinecraft");
+    return a.exec();
 }
