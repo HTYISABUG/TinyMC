@@ -1,7 +1,6 @@
 #include "matrix.h"
 #include "../entity/entity.h"
 #include "../entity/camera.h"
-#include <glm/gtc/matrix_transform.hpp>
 
 #define WIDTH 800.f
 #define HEIGHT 600.f
@@ -10,7 +9,7 @@ using namespace glm;
 
 Matrix4 makeModelMatrix(const Entity &entity)
 {
-    Matrix4 matrix;
+    Matrix4 matrix(1);
 
     matrix = rotate(matrix, radians(entity.rotation().x), {1, 0, 0});
     matrix = rotate(matrix, radians(entity.rotation().y), {0, 1, 0});
@@ -22,11 +21,11 @@ Matrix4 makeModelMatrix(const Entity &entity)
 
 Matrix4 makeViewMatrix(const Camera &camera)
 {
-    Matrix4 matrix;
+    Matrix4 matrix(1);
 
-    matrix = rotate(matrix, radians(-camera.rotation().x), {1, 0, 0});
-    matrix = rotate(matrix, radians(-camera.rotation().y), {0, 1, 0});
-    matrix = rotate(matrix, radians(-camera.rotation().z), {0, 0, 1});
+    matrix = rotate(matrix, radians(camera.rotation().x), {1, 0, 0});
+    matrix = rotate(matrix, radians(camera.rotation().y), {0, 1, 0});
+    matrix = rotate(matrix, radians(camera.rotation().z), {0, 0, 1});
     matrix = translate(matrix, -camera.position());
 
     return matrix;

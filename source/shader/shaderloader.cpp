@@ -35,9 +35,9 @@ namespace {
 
         glGetShaderiv(shaderID, GL_COMPILE_STATUS, &status);
 
-        if (status != 0) {
+        if (status == GL_FALSE) {
             glGetShaderInfoLog(shaderID, MAX_LENGTH, nullptr, infoLog);
-            throw runtime_error("Unable to load shader: " + string(infoLog));
+            throw runtime_error(string(infoLog));
         }
 
         return shaderID;
@@ -65,7 +65,7 @@ GLuint loadShader(const std::string &vertexShader, const std::string &fragmentSh
     auto fragmentSource = getFileContents((prefix / fragmentShader).string());
 
     auto vertexShaderID = compileShader(vertexSource.c_str(), GL_VERTEX_SHADER);
-    auto fragmentShaderID = compileShader(vertexSource.c_str(), GL_FRAGMENT_SHADER);
+    auto fragmentShaderID = compileShader(fragmentSource.c_str(), GL_FRAGMENT_SHADER);
 
     auto programID = linkProgram(vertexShaderID, fragmentShaderID);
 
