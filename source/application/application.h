@@ -2,8 +2,8 @@
 #define APPLICATION_H
 
 #include "context.h"
-#include "../render/rendermanager.h"
-#include "../entity/camera.h"
+#include "entity/camera.h"
+#include "render/rendermanager.h"
 
 class Application
 {
@@ -14,8 +14,8 @@ public:
 
 private:
     Context context;
-    RenderManager manager;
     Camera camera;
+    RenderManager manager;
 };
 
 #endif // APPLICATION_H

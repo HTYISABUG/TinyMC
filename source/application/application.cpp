@@ -4,7 +4,7 @@
 
 Application::Application(const char *title) :
     context(title),
-    camera({5, 0, 5}, {glm::radians(0.), glm::radians(45.), glm::radians(45.)})
+    camera(Vector3(-3), {glm::radians(-35.), glm::radians(45. + 180), glm::radians(0.)})
 {
 
 }

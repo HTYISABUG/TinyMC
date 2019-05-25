@@ -12,6 +12,8 @@ find_package(OpenCV REQUIRED)
 file(GLOB_RECURSE CXX_FILES *.cpp)
 add_executable(${PROJECT_NAME} ${CXX_FILES})
 
+include_directories("source")
+
 target_link_libraries(
     ${PROJECT_NAME}
     ${OPENGL_LIBRARIES}

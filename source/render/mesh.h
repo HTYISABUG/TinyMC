@@ -8,7 +8,7 @@ struct Mesh
 {
     std::vector<GLfloat> vertexPosition;
     std::vector<GLfloat> textureCoords;
-    std::vector<GLuint> indices;
+    std::vector<GLuint>  indices;
 };
 
 #endif // MESH_H

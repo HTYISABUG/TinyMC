@@ -1,40 +1,43 @@
-#include "basicrenderer.h"
-#include "../mesh.h"
-#include "../model.h"
-#include "../../entity/camera.h"
-#include "../../math/matrix.h"
+#include "quadrenderer.h"
+#include "render/mesh.h"
+#include "entity/camera.h"
+#include "math/matrix.h"
 
-BasicRenderer::BasicRenderer(const std::string &file) :
-    _texture(file)
+QuadRenderer::QuadRenderer() :
+    _texture("blocks/grass_side.png")
 {
-    _model.addData({
-       {
-           -0.5,  0.5, 0,
-           0.5,  0.5, 0,
-           0.5, -0.5, 0,
-           -0.5, -0.5, 0,
-       },
-       {
-           0, 1,
-           1, 1,
-           1, 0,
-           0, 0,
-       },
-       {
-           0, 1, 2,
-           2, 3, 0
-       }
-   });
+    using namespace std;
+
+    static const vector<GLfloat> vertexPosition = {
+        -0.5,  0.5, 0,
+        -0.5, -0.5, 0,
+         0.5, -0.5, 0,
+         0.5,  0.5, 0,
+    };
+
+    static const vector<GLfloat> textureCoords = {
+        0, 1,
+        0, 0,
+        1, 0,
+        1, 1,
+    };
+
+    static const vector<GLuint> indices = {
+        0, 1, 2,
+        2, 3, 0
+    };
+
+    _model.addData({vertexPosition, textureCoords, indices});
 }
 
-void BasicRenderer::add(const Vector3 &vec)
+void QuadRenderer::add(const Vector3 &pos)
 {
-    _models.push_back(vec);
+    _positions.push_back(pos);
 }
 
-void BasicRenderer::render(const Camera &camera)
+void QuadRenderer::render(const Camera &camera)
 {
-    if (_models.empty()) {
+    if (_positions.empty()) {
         return;
     }
 
@@ -44,10 +47,10 @@ void BasicRenderer::render(const Camera &camera)
 
     _shader.loadProjectionViewMatrix(camera.projectionViewMatrix());
 
-    for (auto model : _models) {
-        _shader.loadModelMatrix(makeModelMatrix({model, Vector3()}));
+    for (auto pos : _positions) {
+        _shader.loadModelMatrix(makeModelMatrix({pos, Vector3()}));
         glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(_model.indicesCount()), GL_UNSIGNED_INT, nullptr);
     }
 
-//    _models.clear();
+//    _positions.clear();
 }

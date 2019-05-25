@@ -1,6 +1,6 @@
 #include "matrix.h"
-#include "../entity/entity.h"
-#include "../entity/camera.h"
+#include "entity/entity.h"
+#include "entity/camera.h"
 
 #define WIDTH 800.f
 #define HEIGHT 600.f

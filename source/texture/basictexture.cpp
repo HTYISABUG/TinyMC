@@ -20,9 +20,14 @@ void BasicTexture::bindTexture() const
 
 void BasicTexture::loadFromFile(const std::string &file)
 {
+    loadFromImage(loadImage(file));
+}
+
+cv::Mat BasicTexture::loadImage(const std::string &file)
+{
     namespace fs = boost::filesystem;
 
-    static const auto path = fs::path("res/texture");
+    static const auto path = fs::path("assets/textures");
 
     auto image = cv::imread((path / file).string());
 
@@ -30,13 +35,17 @@ void BasicTexture::loadFromFile(const std::string &file)
         throw std::runtime_error("Unable to load image: " + file);
     }
 
-//    cv::cvtColor(image, image, cv::COLOR_BGR2RGB);
-//    cv::flip(image, image, -1);
+    cv::flip(image, image, 0);
 
+    return image;
+}
+
+void BasicTexture::loadFromImage(const cv::Mat &image)
+{
     glGenTextures(1, &_id);
     glBindTexture(GL_TEXTURE_2D, _id);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.cols, image.rows, 0, GL_RGB, GL_UNSIGNED_BYTE, image.data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.cols, image.rows, 0, GL_BGR, GL_UNSIGNED_BYTE, image.data);
     glGenerateMipmap(GL_TEXTURE_2D);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);

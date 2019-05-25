@@ -1,5 +1,5 @@
 #include "camera.h"
-#include "../math/matrix.h"
+#include "math/matrix.h"
 
 Camera::Camera(const Vector3 &position, const Vector3 &rotation)
 {

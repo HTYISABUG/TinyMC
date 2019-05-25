@@ -59,7 +59,7 @@ GLuint loadShader(const std::string &vertexShader, const std::string &fragmentSh
 {
     namespace fs = boost::filesystem;
 
-    auto prefix = fs::path("res/shader");
+    static const auto prefix = fs::path("assets/shaders");
 
     auto vertexSource = getFileContents((prefix / vertexShader).string());
     auto fragmentSource = getFileContents((prefix / fragmentShader).string());

@@ -1,18 +1,18 @@
-#ifndef BASICRENDERER_H
-#define BASICRENDERER_H
+#ifndef CUDERENDERER_H
+#define CUDERENDERER_H
 
 #include "math/glm.h"
 #include "render/model.h"
 #include "shader/basicshader.h"
-#include "texture/basictexture.h"
+#include "texture/textureatlas.h"
 #include <vector>
 
 class Camera;
 
-class QuadRenderer
+class CubeRenderer
 {
 public:
-    QuadRenderer();
+    CubeRenderer();
 
     void add(const Vector3 &pos);
     void render(const Camera &camera);
@@ -22,7 +22,7 @@ private:
 
     Model _model;
     BasicShader _shader;
-    BasicTexture _texture;
+    TextureAtlas _atlas;
 };
 
-#endif // BASICRENDERER_H
+#endif // CUDERENDERER_H
