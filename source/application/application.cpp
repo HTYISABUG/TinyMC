@@ -4,12 +4,10 @@
 
 Application::Application(const char *title) :
     context(title),
-    camera({0, 0, 3})
+    camera({5, 0, 5}, {glm::radians(0.), glm::radians(45.), glm::radians(45.)})
 {
 
 }
-
-#include "../shader/basicshader.h"
 
 int Application::exec()
 {

@@ -1,9 +1,11 @@
 #include "camera.h"
 #include "../math/matrix.h"
 
-Camera::Camera(const Vector3 &position, const Vector3 &rotation) :
-    Entity(position, rotation)
+Camera::Camera(const Vector3 &position, const Vector3 &rotation)
 {
+    _position = position;
+    _rotation = rotation;
+
     _projectionMatrix = makeProjectionMatrix(45);
     _viewMatrix = makeViewMatrix(*this);
     _projectionViewMatrix = _projectionMatrix * _viewMatrix;
@@ -22,6 +24,16 @@ bool Camera::attachEntity(const Entity &entity)
 void Camera::detachEntity()
 {
     _hookEntity = nullptr;
+}
+
+Vector3 Camera::position() const
+{
+    return _position;
+}
+
+Vector3 Camera::rotation() const
+{
+    return _rotation;
 }
 
 Matrix4 Camera::projectionMatrix() const

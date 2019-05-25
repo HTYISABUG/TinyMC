@@ -4,13 +4,16 @@
 #include "entity.h"
 #include "../math/glm.h"
 
-class Camera : public Entity
+class Camera : private Entity
 {
 public:
     Camera(const Vector3 &position = Vector3(), const Vector3 &rotation = Vector3());
 
     bool attachEntity(const Entity &entity);
     void detachEntity();
+
+    Vector3 position() const;
+    Vector3 rotation() const;
 
     Matrix4 projectionMatrix() const;
     Matrix4 viewMatrix() const;
