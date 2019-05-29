@@ -15,7 +15,7 @@ TextureAtlas::TextureAtlas(const std::string &file)
     _tWidth = _tHeight = TEXTURE_EDGE;
 }
 
-std::array<GLfloat, 8> TextureAtlas::getTexture(const Vector2 &coords)
+std::array<GLfloat, 8> TextureAtlas::getTexture(const Vector2 &coords) const
 {
     static const auto TEXTURE_PER_ROW = static_cast<GLfloat>(_width) / _tWidth;
     static const auto TEXTURE_WIDTH = 1.f / TEXTURE_PER_ROW;

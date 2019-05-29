@@ -10,7 +10,7 @@ class TextureAtlas : public BasicTexture
 public:
     TextureAtlas(const std::string &file);
 
-    std::array<GLfloat, 8> getTexture(const Vector2 &coords);
+    std::array<GLfloat, 8> getTexture(const Vector2 &coords) const;
 
 private:
     int _width, _height;

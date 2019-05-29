@@ -8,6 +8,7 @@ find_package(GLEW REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system filesystem)
 find_package(OpenCV REQUIRED)
+find_package(nlohmann_json 3.2.0 REQUIRED)
 
 file(GLOB_RECURSE CXX_FILES *.cpp)
 add_executable(${PROJECT_NAME} ${CXX_FILES})
@@ -21,4 +22,5 @@ target_link_libraries(
     glfw
     ${Boost_LIBRARIES}
     ${OpenCV_LIBS}
+    nlohmann_json::nlohmann_json
 )
