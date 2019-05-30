@@ -1,7 +1,7 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include "math/glm.h"
+#include "math/types.h"
 #include <string>
 #include <boost/utility.hpp>
 #include <GL/glew.h>

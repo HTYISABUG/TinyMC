@@ -1,7 +1,7 @@
 #ifndef ABSTRACTCHUNK_H
 #define ABSTRACTCHUNK_H
 
-#include "math/glm.h"
+#include "math/types.h"
 
 class ChunkBlock;
 

@@ -2,7 +2,7 @@
 #define CAMERA_H
 
 #include "entity.h"
-#include "math/glm.h"
+#include "math/types.h"
 
 class Camera : private Entity
 {

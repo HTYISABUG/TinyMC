@@ -1,7 +1,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#include "glm.h"
+#include "types.h"
 
 class Entity;
 class Camera;

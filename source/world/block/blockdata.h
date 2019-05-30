@@ -1,7 +1,7 @@
 #ifndef BLOCKDATA_H
 #define BLOCKDATA_H
 
-#include "math/glm.h"
+#include "math/types.h"
 #include <boost/utility.hpp>
 
 struct BlockData : public boost::noncopyable

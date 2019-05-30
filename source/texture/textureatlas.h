@@ -2,7 +2,7 @@
 #define TEXTUREATLAS_H
 
 #include "basictexture.h"
-#include "math/glm.h"
+#include "math/types.h"
 #include <array>
 
 class TextureAtlas : public BasicTexture

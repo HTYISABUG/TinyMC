@@ -5,18 +5,4 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
 
-using Vector2 = glm::vec2;
-using Vector3 = glm::vec3;
-using Vector4 = glm::vec4;
-
-using Vector2i = glm::ivec2;
-using Vector3i = glm::ivec3;
-
-struct VectorXZi
-{
-    int x, z;
-};
-
-using Matrix4 = glm::mat4;
-
 #endif // GLM_H

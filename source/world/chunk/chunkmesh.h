@@ -1,7 +1,7 @@
 #ifndef CHUNKMESH_H
 #define CHUNKMESH_H
 
-#include "math/glm.h"
+#include "math/types.h"
 #include "render/mesh.h"
 #include "render/model.h"
 #include <array>

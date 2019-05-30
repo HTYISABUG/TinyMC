@@ -10,6 +10,7 @@
 class Chunk : public AbstractChunk
 {
 public:
+    Chunk() = default;
     Chunk(const VectorXZi &location);
 
     void makeMesh();
