@@ -17,6 +17,12 @@ Chunk::Chunk(const VectorXZi &location) :
     }
 }
 
+void Chunk::makeMesh()
+{
+    ChunkMesh::Builder(*this, _mesh).build();
+    _mesh.bufferMesh();
+}
+
 ChunkBlock Chunk::getBlock(const Vector3i &position) const
 {
     if (inRange(position)) {

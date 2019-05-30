@@ -12,6 +12,11 @@ using Vector4 = glm::vec4;
 using Vector2i = glm::ivec2;
 using Vector3i = glm::ivec3;
 
+struct VectorXZi
+{
+    int x, z;
+};
+
 using Matrix4 = glm::mat4;
 
 #endif // GLM_H

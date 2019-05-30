@@ -13,9 +13,4 @@ struct AbstractChunk
     virtual void setBlock(const Vector3i &position, const ChunkBlock &block) = 0;
 };
 
-struct VectorXZi
-{
-    int x, z;
-};
-
 #endif // ABSTRACTCHUNK_H
