@@ -24,6 +24,7 @@ Context::Context(const char *title)
     _window = glfwCreateWindow(WIDTH, HEIGHT, title, nullptr, nullptr);
 
     glfwMakeContextCurrent(_window);
+    glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     auto err = glewInit();
 

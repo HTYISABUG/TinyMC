@@ -105,5 +105,5 @@ void CubeRenderer::render(const Camera &camera)
         glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(_model.indicesCount()), GL_UNSIGNED_INT, nullptr);
     }
 
-//    _positions.clear();
+    _positions.clear();
 }

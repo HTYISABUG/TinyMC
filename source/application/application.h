@@ -4,6 +4,7 @@
 #include "context.h"
 #include "world/world.h"
 #include "entity/camera.h"
+#include "entity/player.h"
 #include "render/rendermanager.h"
 
 class Application
@@ -19,6 +20,7 @@ private:
     RenderManager manager;
 
     World world;
+    Player player;
 };
 
 #endif // APPLICATION_H
