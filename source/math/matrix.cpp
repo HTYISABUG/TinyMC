@@ -22,24 +22,23 @@ Matrix4 makeModelMatrix(const Entity &entity)
 
 Matrix4 makeViewMatrix(const Camera &camera)
 {
+    static const auto deg90 = radians(90.f);
+
     auto rotation = camera.rotation();
 
     Vector3 direction = {
-        -cos(rotation.x) * sin(rotation.y),
-        -sin(rotation.x),
-        -cos(rotation.x) * cos(rotation.y),
+        cos(rotation.x) * -sin(rotation.y),
+        sin(rotation.x),
+        cos(rotation.x) * -cos(rotation.y),
     };
-
-    static const auto deg90 = radians(90.f);
 
     Vector3 right = {
         -sin(rotation.y - deg90),
-        -0,
+        0,
         -cos(rotation.y - deg90),
     };
 
-
-    auto up = angleAxis(rotation.z, direction) * cross(right, direction);
+    auto up = angleAxis(-rotation.z, direction) * cross(right, direction);
     auto position = camera.position();
 
     return lookAt(position, position + direction, up);
