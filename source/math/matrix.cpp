@@ -12,39 +12,58 @@ Matrix4 makeModelMatrix(const Entity &entity)
 {
     Matrix4 matrix(1);
 
-    matrix = rotate(matrix, radians(entity._rotation.x), {1, 0, 0});
-    matrix = rotate(matrix, radians(entity._rotation.y), {0, 1, 0});
-    matrix = rotate(matrix, radians(entity._rotation.z), {0, 0, 1});
-    matrix = translate(matrix, entity._position);
+    matrix = rotate(matrix, radians(entity.rotation.x), {1, 0, 0});
+    matrix = rotate(matrix, radians(entity.rotation.y), {0, 1, 0});
+    matrix = rotate(matrix, radians(entity.rotation.z), {0, 0, 1});
+    matrix = translate(matrix, entity.position);
 
     return matrix;
 }
 
 Matrix4 makeViewMatrix(const Camera &camera)
 {
-    static const auto deg90 = radians(90.f);
+    auto d = sight(camera);
+    auto u = up(camera);
 
-    auto rotation = camera.rotation();
+    const auto &position = camera.position;
 
-    Vector3 direction = {
-        cos(rotation.x) * -sin(rotation.y),
-        sin(rotation.x),
-        cos(rotation.x) * -cos(rotation.y),
-    };
-
-    Vector3 right = {
-        -sin(rotation.y - deg90),
-        0,
-        -cos(rotation.y - deg90),
-    };
-
-    auto up = angleAxis(-rotation.z, direction) * cross(right, direction);
-    auto position = camera.position();
-
-    return lookAt(position, position + direction, up);
+    return lookAt(position, position + d, u);
 }
 
 Matrix4 makeProjectionMatrix(float fov)
 {
     return perspective(radians(fov), WIDTH / HEIGHT, 0.1f, 1000.f);
+}
+
+Vector3 sight(const Camera &camera)
+{
+    const auto &rotation = camera.rotation;
+
+    return {
+        cos(rotation.x) * -sin(rotation.y),
+        sin(rotation.x),
+        cos(rotation.x) * -cos(rotation.y),
+    };
+}
+
+Vector3 right(const Camera &camera)
+{
+    static const auto deg90 = radians(90.f);
+
+    const auto &rotation = camera.rotation;
+
+    return {
+        -sin(rotation.y - deg90),
+        0,
+        -cos(rotation.y - deg90),
+    };
+}
+
+Vector3 up(const Camera &camera)
+{
+    const auto &rotation = camera.rotation;
+    const auto d = sight(camera);
+    const auto r = right(camera);
+
+    return angleAxis(-rotation.z, d) * cross(r, d);
 }

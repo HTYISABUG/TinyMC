@@ -10,6 +10,8 @@ using ChunkTable = std::unordered_map<VectorXZi, Chunk>;
 class ChunkManager
 {
 public:
+    void load(const VectorXZi &location);
+
     Chunk &getChunk(const VectorXZi &location);
     ChunkTable &getChunks();
 

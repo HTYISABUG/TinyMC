@@ -1,4 +1,31 @@
 #include "world.h"
+#include "render/rendermanager.h"
+
+namespace {
+constexpr int WORLD_SIZE = 2;
+}
+
+World::World()
+{
+    for (int z = 0; z < WORLD_SIZE; ++z)
+    for (int x = 0; x < WORLD_SIZE; ++x)
+    {
+        _chunkManager.load({x, z});
+    }
+
+    for (auto &[loc, chunk] : _chunkManager.getChunks()) {
+        chunk.makeMesh();
+    }
+}
+
+void World::updateRenderer(RenderManager &renderManager)
+{
+    for (auto &[loc, chunk] : _chunkManager.getChunks()) {
+        if (chunk.hasMesh()) {
+            renderManager.addChunk(chunk.chunkMesh());
+        }
+    }
+}
 
 ChunkBlock World::getBlock(const Vector3i &position)
 {

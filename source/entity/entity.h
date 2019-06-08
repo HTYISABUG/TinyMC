@@ -5,8 +5,8 @@
 
 struct Entity
 {
-    Vector3 _position;
-    Vector3 _rotation;
+    Vector3 position;
+    Vector3 rotation;
 };
 
 #endif // ENTITY_H

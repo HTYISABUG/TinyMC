@@ -3,6 +3,15 @@
 Chunk::Chunk(const VectorXZi &location) :
     _location(location)
 {
+
+}
+
+void Chunk::load()
+{
+    if (_isLoaded) {
+        return;
+    }
+
     for (int y = 0; y < CHUNK_HEIGHT; ++y)
     for (int z = 0; z < CHUNK_SIZE; ++z)
     for (int x = 0; x < CHUNK_SIZE; ++x)
@@ -15,12 +24,15 @@ Chunk::Chunk(const VectorXZi &location) :
             setBlock({x, y, z}, BlockId::DIRT);
         }
     }
+
+    _isLoaded = true;
 }
 
 void Chunk::makeMesh()
 {
-    ChunkMesh::Builder(*this, _mesh).build();
-    _mesh.bufferMesh();
+    ChunkMesh::Builder(*this, _chunkMesh).build();
+    _chunkMesh.bufferMesh();
+    _hasMesh = true;
 }
 
 ChunkBlock Chunk::getBlock(const Vector3i &position) const
@@ -41,9 +53,24 @@ void Chunk::setBlock(const Vector3i &position, const ChunkBlock &block)
     }
 }
 
+const ChunkMesh &Chunk::chunkMesh() const
+{
+    return _chunkMesh;
+}
+
 const VectorXZi &Chunk::location() const
 {
     return _location;
+}
+
+bool Chunk::hasMesh() const
+{
+    return _hasMesh;
+}
+
+bool Chunk::isLoaded() const
+{
+    return _isLoaded;
 }
 
 bool Chunk::inRange(const Vector3i &position)

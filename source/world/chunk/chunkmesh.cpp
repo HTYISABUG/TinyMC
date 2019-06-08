@@ -117,7 +117,7 @@ struct AdjacentPositions
 
 ChunkMesh::Builder::Builder(const Chunk &chunk, ChunkMesh &chunkMesh) :
     _chunk(chunk),
-    _mesh(chunkMesh)
+    _chunkMesh(chunkMesh)
 {
 
 }
@@ -158,6 +158,6 @@ void ChunkMesh::Builder::addSurface(const std::array<GLfloat, 12> &vertexPositio
 {
     if (_chunk.getBlock(adjacPosition) == BlockId::AIR) {
         auto texCoords = BlockManager::instance().textureAtlas().getTexture(atlasLocation);
-        _mesh.addSurface(vertexPositions, texCoords, _chunk.location(), blockPosition);
+        _chunkMesh.addSurface(vertexPositions, texCoords, _chunk.location(), blockPosition);
     }
 }

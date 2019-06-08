@@ -4,23 +4,21 @@
 #include "entity.h"
 #include "math/types.h"
 
-class Camera : private Entity
+class Camera : public Entity
 {
 public:
     Camera(const Vector3 &position = Vector3(), const Vector3 &rotation = Vector3());
 
-    bool attachEntity(const Entity &entity);
+    bool attachEntity(const Entity &Camera);
     void detachEntity();
-
-    Vector3 position() const;
-    Vector3 rotation() const;
+    void update();
 
     Matrix4 projectionMatrix() const;
     Matrix4 viewMatrix() const;
     Matrix4 projectionViewMatrix() const;
 
 private:
-    const Entity *_hookEntity;
+    const Entity *_hookEntity = nullptr;
 
     Matrix4 _projectionMatrix;
     Matrix4 _viewMatrix;

@@ -5,9 +5,15 @@
 #include "chunk/chunkmanager.h"
 #include <boost/utility.hpp>
 
+class RenderManager;
+
 class World : public boost::noncopyable
 {
 public:
+    World();
+
+    void updateRenderer(RenderManager &renderManager);
+
     ChunkBlock getBlock(const Vector3i &position);
     void setBlock(const Vector3i &position, const ChunkBlock &block);
 

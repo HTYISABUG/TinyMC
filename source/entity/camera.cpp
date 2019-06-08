@@ -3,8 +3,8 @@
 
 Camera::Camera(const Vector3 &position, const Vector3 &rotation)
 {
-    _position = position;
-    _rotation = rotation;
+    this->position = position;
+    this->rotation = rotation;
 
     _projectionMatrix = makeProjectionMatrix(45);
     _viewMatrix = makeViewMatrix(*this);
@@ -26,14 +26,15 @@ void Camera::detachEntity()
     _hookEntity = nullptr;
 }
 
-Vector3 Camera::position() const
+void Camera::update()
 {
-    return _position;
-}
+    if (_hookEntity != nullptr) {
+        position = _hookEntity->position;
+        rotation = _hookEntity->rotation;
 
-Vector3 Camera::rotation() const
-{
-    return _rotation;
+        _viewMatrix = makeViewMatrix(*this);
+        _projectionViewMatrix = _projectionMatrix * _viewMatrix;
+    }
 }
 
 Matrix4 Camera::projectionMatrix() const

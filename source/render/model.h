@@ -17,7 +17,7 @@ public:
     void deleteData();
 
     void genVAO();
-    void bindVAO() const ;
+    void bindVAO() const;
     void addVBO(int dim, const std::vector<GLfloat> &data);
     void addEBO(const std::vector<GLuint> &indices);
 

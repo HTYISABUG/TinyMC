@@ -26,7 +26,7 @@ BlockData::BlockData(const std::string &file)
 
     auto textures = data["textures"];
 
-    if (textures.find("all") == textures.end()) {
+    if (textures.find("all") != textures.end()) {
         texTopCoord = {textures["all"][0], textures["all"][1]};
         texBottomCoord = texSideCoord = texTopCoord;
     } else {

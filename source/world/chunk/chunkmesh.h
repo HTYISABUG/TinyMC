@@ -43,7 +43,7 @@ private:
                     const Vector3i &adjacPosition);
 
     const Chunk &_chunk;
-    ChunkMesh &_mesh;
+    ChunkMesh &_chunkMesh;
 };
 
 #endif // CHUNKMESH_H

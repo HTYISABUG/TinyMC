@@ -1,6 +1,11 @@
 #include "chunkmanager.h"
 #include "chunk.h"
 
+void ChunkManager::load(const VectorXZi &location)
+{
+    getChunk(location).load();
+}
+
 Chunk &ChunkManager::getChunk(const VectorXZi &location)
 {
     if (!chunkExistAt(location)) {
