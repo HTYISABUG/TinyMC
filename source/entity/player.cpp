@@ -24,23 +24,58 @@ void Player::update(double delta)
 
 void Player::keyPressEvent(GLFWwindow *window)
 {
+    static bool accelerated = false;
+
+    constexpr float acRate = 2;
+    constexpr float hSpeed = 50;
+    constexpr float vSpeed = hSpeed;
+
     Vector3 v(0);
 
-    constexpr float speed = 50;
+    static const auto pressed = [window](int key) {
+        return glfwGetKey(window, key) == GLFW_PRESS;
+    };
 
-    auto d = glm::normalize(front()) * speed;
-    auto r = glm::normalize(right()) * speed;
+    static const auto dimReduct = [](const Vector3 &vec) {
+        return glm::normalize(Vector3(vec.x, 0, vec.z));
+    };
 
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+    auto d = dimReduct(front()) * hSpeed;
+    auto r = dimReduct(right()) * hSpeed;
+
+    // vertical speed
+    if (pressed(GLFW_KEY_SPACE)) {
+        v.y += vSpeed;
+    }
+    if (pressed(GLFW_KEY_LEFT_SHIFT)) {
+        v.y -= vSpeed;
+    }
+
+    // speed down
+    if (!(velocity.x < -hSpeed || hSpeed > velocity.x || velocity.z < -hSpeed || hSpeed > velocity.z)) {
+        accelerated = false;
+    }
+
+    // speed up
+    if (pressed(GLFW_KEY_LEFT_CONTROL)) {
+        accelerated = true;
+    }
+    if (accelerated) {
+        d *= acRate;
+        r *= acRate;
+    }
+
+    // horizontal speed
+    if (pressed(GLFW_KEY_W)) {
         v += d;
     }
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+    if (pressed(GLFW_KEY_S)) {
         v -= d;
     }
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+    if (pressed(GLFW_KEY_A)) {
         v -= r;
     }
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+    if (pressed(GLFW_KEY_D)) {
         v += r;
     }
 
@@ -67,12 +102,12 @@ void Player::mouseMoveEvent(GLFWwindow *window)
     rotation.y += static_cast<float>(-delta.x * aSpeed);
     rotation.x += static_cast<float>(-delta.y * aSpeed);
 
-    static const auto deg90 = glm::radians(90.f);
+    static const auto deg89 = glm::radians(89.f);
 
-    if (rotation.x > deg90) {
-        rotation.x = deg90;
-    } else if (rotation.x < -deg90) {
-        rotation.x = -deg90;
+    if (rotation.x > deg89) {
+        rotation.x = deg89;
+    } else if (rotation.x < -deg89) {
+        rotation.x = -deg89;
     }
 
     glfwSetCursorPos(window, basePosition.x, basePosition.y);

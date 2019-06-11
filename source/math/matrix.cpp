@@ -3,8 +3,8 @@
 #include "entity/entity.h"
 #include "entity/camera.h"
 
-#define WIDTH 800.f
-#define HEIGHT 600.f
+#define WIDTH 1280.f
+#define HEIGHT 720.f
 
 using namespace glm;
 
