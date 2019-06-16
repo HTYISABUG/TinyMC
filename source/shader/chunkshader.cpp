@@ -1,7 +1,7 @@
 #include "chunkshader.h"
 
 ChunkShader::ChunkShader(const std::string vertexFile, const std::string fragmentFile) :
-    Shader(vertexFile, fragmentFile)
+    AbstractShader(vertexFile, fragmentFile)
 {
     getUniforms();
 }

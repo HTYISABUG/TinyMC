@@ -1,9 +1,9 @@
 #ifndef BASICSHADER_H
 #define BASICSHADER_H
 
-#include "shader.h"
+#include "abstractshader.h"
 
-class BasicShader : public Shader
+class BasicShader : public AbstractShader
 {
 public:
     BasicShader(const std::string vertexFile = "basic.vert",

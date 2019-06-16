@@ -3,12 +3,13 @@
 
 #include "entity.h"
 
+class World;
 struct GLFWwindow;
 
 class Player : public Entity
 {
 public:
-    Player(const Vector3 &position = Vector3(), const Vector3 &rotation = Vector3());
+    Player(World *world, const Vector3 &position = Vector3(), const Vector3 &rotation = Vector3());
 
     void handleEvent(GLFWwindow *window);
     void update(double delta);
@@ -16,7 +17,9 @@ public:
 private:
     void keyPressEvent(GLFWwindow *window);
     void mouseMoveEvent(GLFWwindow *window);
+    void mousePressEvent(GLFWwindow *window);
 
+    World * const _world;
     Vector3 velocity;
 };
 

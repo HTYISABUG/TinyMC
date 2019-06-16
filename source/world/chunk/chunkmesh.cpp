@@ -1,6 +1,6 @@
 #include "chunkmesh.h"
 #include "chunk.h"
-#include "world/constant.h"
+#include "constant.h"
 #include "world/block/blockmanager.h"
 
 void ChunkMesh::addSurface(const std::array<GLfloat, 12> &vertexPositions,

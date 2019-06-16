@@ -2,6 +2,7 @@
 #define TYPES_H
 
 #include "vectorxz.h"
+#include <iostream>
 #include <glm/glm.hpp>
 
 using Vector2 = glm::vec2;
@@ -15,5 +16,11 @@ using Vector3i = glm::ivec3;
 
 using Matrix2 = glm::mat2;
 using Matrix4 = glm::mat4;
+
+template<class T>
+std::ostream &operator <<(std::ostream &os, const glm::tvec3<T> &v)
+{
+    return os << '{' << v.x << ' ' << v.y << ' ' << v.z << '}';
+}
 
 #endif // TYPES_H

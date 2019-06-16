@@ -1,5 +1,12 @@
 #include "chunkmanager.h"
 #include "chunk.h"
+#include <utility>
+
+ChunkManager::ChunkManager(World *world) :
+    _world(world)
+{
+
+}
 
 void ChunkManager::load(const VectorXZi &location)
 {
@@ -9,7 +16,7 @@ void ChunkManager::load(const VectorXZi &location)
 Chunk &ChunkManager::getChunk(const VectorXZi &location)
 {
     if (!chunkExistAt(location)) {
-        _chunks.emplace(location, location);
+        _chunks.try_emplace(location, _world, location);
     }
 
     return _chunks[location];

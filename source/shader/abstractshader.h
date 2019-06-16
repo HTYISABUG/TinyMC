@@ -6,11 +6,11 @@
 #include <boost/utility.hpp>
 #include <GL/glew.h>
 
-class Shader : public boost::noncopyable
+class AbstractShader : public boost::noncopyable
 {
 public:
-    Shader(const std::string &vertexFile, const std::string &fragmentFile);
-    virtual ~Shader();
+    AbstractShader(const std::string &vertexFile, const std::string &fragmentFile);
+    virtual ~AbstractShader();
 
     void loadInt(GLuint location, int value);
     void loadFloat(GLuint location, float value);

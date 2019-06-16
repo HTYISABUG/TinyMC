@@ -1,10 +1,11 @@
 #include "matrix.h"
+#include "constant.h"
 #include "glm.h"
 #include "entity/entity.h"
 #include "entity/camera.h"
 
-#define WIDTH 1280.f
-#define HEIGHT 720.f
+#define WIDTH static_cast<float>(WINDOW_WIDTH)
+#define HEIGHT static_cast<float>(WINDOW_HEIGHT)
 
 using namespace glm;
 

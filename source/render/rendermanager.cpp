@@ -10,6 +10,7 @@ void RenderManager::render(const Camera &camera)
     glClearColor(.1f, .5, 1, 1);
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
+    // 3D render
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
 

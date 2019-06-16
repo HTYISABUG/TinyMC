@@ -4,7 +4,7 @@
 
 Application::Application(const char *title) :
     context(title),
-    player({16.5, 10, 40}, {glm::radians(-20.), glm::radians(0.), glm::radians(0.)})
+    player(&world, {0, 10, 0}, {glm::radians(-20.), glm::radians(0.), glm::radians(0.)})
 {
 
 }
@@ -22,6 +22,7 @@ int Application::exec()
         player.handleEvent(window);
 
         player.update(glfwGetTime() - ts);
+        world.updateChunks();
         camera.update();
 
         world.updateRenderer(manager);

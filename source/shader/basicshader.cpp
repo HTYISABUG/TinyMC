@@ -1,7 +1,7 @@
 #include "basicshader.h"
 
 BasicShader::BasicShader(const std::string vertexFile, const std::string fragmentFile) :
-    Shader(vertexFile, fragmentFile)
+    AbstractShader(vertexFile, fragmentFile)
 {
     getUniforms();
 }

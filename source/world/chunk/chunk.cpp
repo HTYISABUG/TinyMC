@@ -1,6 +1,8 @@
 #include "chunk.h"
+#include "world/world.h"
 
-Chunk::Chunk(const VectorXZi &location) :
+Chunk::Chunk(World *world, const VectorXZi &location) :
+    _world(world),
     _location(location)
 {
 
@@ -40,7 +42,7 @@ ChunkBlock Chunk::getBlock(const Vector3i &position) const
     if (inRange(position)) {
         return _blocks[getIndex(position)];
     } else {
-        // TODO: out of bound handler
+        return BlockId::AIR;
     }
 }
 
@@ -48,8 +50,6 @@ void Chunk::setBlock(const Vector3i &position, const ChunkBlock &block)
 {
     if (inRange(position)) {
         _blocks[getIndex(position)] = block;
-    } else {
-        // TODO: out of bound handler
     }
 }
 
@@ -89,7 +89,7 @@ unsigned Chunk::getIndex(const Vector3i &position)
     );
 }
 
-Vector3i Chunk::toWorldPosition(const Vector3i &position)
+Vector3i Chunk::toWorldPosition(const Vector3i &position) const
 {
     return {
         _location.x * CHUNK_SIZE + position.x,

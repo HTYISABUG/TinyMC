@@ -1,10 +1,8 @@
 #include "context.h"
+#include "constant.h"
 #include <stdexcept>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
-#define WIDTH 1280
-#define HEIGHT 720
 
 Context::Context(const char *title)
 {
@@ -21,10 +19,10 @@ Context::Context(const char *title)
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // use core profile
 
-    _window = glfwCreateWindow(WIDTH, HEIGHT, title, nullptr, nullptr);
+    _window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, title, nullptr, nullptr);
 
     glfwMakeContextCurrent(_window);
-    glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+//    glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     auto err = glewInit();
 

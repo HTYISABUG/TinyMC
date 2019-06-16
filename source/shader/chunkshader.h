@@ -1,9 +1,9 @@
 #ifndef CHUNKSHADER_H
 #define CHUNKSHADER_H
 
-#include "shader.h"
+#include "abstractshader.h"
 
-class ChunkShader : public Shader
+class ChunkShader : public AbstractShader
 {
 public:
     ChunkShader(const std::string vertexFile = "chunk.vert",

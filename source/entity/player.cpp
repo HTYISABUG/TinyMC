@@ -1,9 +1,13 @@
 #include "player.h"
 #include "math/glm.h"
 #include "math/matrix.h"
+#include "world/world.h"
+#include <chrono>
 #include <GLFW/glfw3.h>
+#include "util.h"
 
-Player::Player(const Vector3 &position, const Vector3 &rotation)
+Player::Player(World *world, const Vector3 &position, const Vector3 &rotation) :
+    _world(world)
 {
     this->position = position;
     this->rotation = rotation;
@@ -14,6 +18,7 @@ void Player::handleEvent(GLFWwindow *window)
 {
     keyPressEvent(window);
     mouseMoveEvent(window);
+    mousePressEvent(window);
 }
 
 void Player::update(double delta)
@@ -111,4 +116,40 @@ void Player::mouseMoveEvent(GLFWwindow *window)
     }
 
     glfwSetCursorPos(window, basePosition.x, basePosition.y);
+}
+
+void Player::mousePressEvent(GLFWwindow *window)
+{
+    using namespace std::chrono;
+
+    static constexpr int maxDistanse = 5;
+    static constexpr int responseTime = 200; // milliseconds
+
+    static const auto pressed = [window](int key) {
+        return glfwGetMouseButton(window, key) == GLFW_PRESS;
+    };
+
+    static auto now = [](){
+        return duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+    };
+
+    static auto time = now();
+
+    for (auto v = Vector3(0), f = front(); glm::length(v) < maxDistanse; v += 0.1f * f) {
+        auto targetPosition = glm::round(position + v);
+        auto block = _world->getBlock(targetPosition);
+
+        if (block != BlockId::AIR) {
+            if ((now() - time).count() > responseTime) {
+                if (pressed(GLFW_MOUSE_BUTTON_LEFT)) {
+                    _world->updateBlock(targetPosition, BlockId::AIR);
+                    time = now();
+                    break;
+                } else if (pressed(GLFW_MOUSE_BUTTON_RIGHT)) {
+                    // TODO: place block
+                    break;
+                }
+            }
+        }
+    }
 }
