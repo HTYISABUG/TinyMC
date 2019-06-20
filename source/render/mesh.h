@@ -4,23 +4,38 @@
 #include <vector>
 #include <GL/glew.h>
 
-struct Mesh
+struct AbstractMesh
 {
-    std::vector<GLfloat> vertexPositions;
+    virtual ~AbstractMesh() = default;
+
+    virtual void clear() = 0;
+
+    std::vector<GLfloat>    vertexPositions;
+    std::vector<GLuint>     indices;
+};
+
+struct ColorMesh : AbstractMesh
+{
+    ColorMesh() = default;
+    ColorMesh(std::vector<GLfloat>  vertexPositions,
+              std::vector<GLfloat>  vertexColors,
+              std::vector<GLuint>   indices);
+
+    void clear() override;
+
+    std::vector<GLfloat> vertexColors;
+};
+
+struct TextureMesh : AbstractMesh
+{
+    TextureMesh() = default;
+    TextureMesh(std::vector<GLfloat>    vertexPositions,
+                std::vector<GLfloat>    textureCoords,
+                std::vector<GLuint>     indices);
+
+    void clear() override;
+
     std::vector<GLfloat> textureCoords;
-    std::vector<GLuint>  indices;
-
-    void clear()
-    {
-        vertexPositions.clear();
-        vertexPositions.shrink_to_fit();
-
-        textureCoords.clear();
-        textureCoords.shrink_to_fit();
-
-        indices.clear();
-        indices.shrink_to_fit();
-    }
 };
 
 #endif // MESH_H

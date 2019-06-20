@@ -2,7 +2,7 @@
 #define BASICRENDERER_H
 
 #include "math/glm.h"
-#include "render/model.h"
+#include "render/model/texturemodel3d.h"
 #include "shader/basicshader.h"
 #include "texture/basictexture.h"
 #include <vector>
@@ -20,7 +20,7 @@ public:
 private:
     std::vector<Vector3> _positions;
 
-    Model _model;
+    TextureModel3D _model;
     BasicShader _shader;
     BasicTexture _texture;
 };

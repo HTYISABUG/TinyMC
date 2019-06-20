@@ -3,7 +3,7 @@
 
 #include "math/types.h"
 #include "render/mesh.h"
-#include "render/model.h"
+#include "render/model/texturemodel3d.h"
 #include <array>
 
 class ChunkMesh
@@ -15,13 +15,13 @@ public:
                     const Vector3i  &blockPosition);
     void bufferMesh();
 
-    const Model &model() const;
+    const TextureModel3D &model() const;
 
     class Builder;
 
 private:
-    Mesh  _mesh;
-    Model _model;
+    TextureMesh  _mesh;
+    TextureModel3D _model;
 
     GLuint _indexCount = 0;
 };

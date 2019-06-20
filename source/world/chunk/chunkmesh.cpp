@@ -36,60 +36,12 @@ void ChunkMesh::bufferMesh()
     _indexCount = 0;
 }
 
-const Model &ChunkMesh::model() const
+const TextureModel3D &ChunkMesh::model() const
 {
     return _model;
 }
 
 namespace {
-static const std::array<GLfloat, 12> frontVertex = {
-    // front
-    -0.5,  0.5,  0.5,
-    -0.5, -0.5,  0.5,
-    0.5, -0.5,  0.5,
-    0.5,  0.5,  0.5,
-};
-
-static const std::array<GLfloat, 12> backVertex = {
-    // back
-    0.5,  0.5, -0.5,
-    0.5, -0.5, -0.5,
-    -0.5, -0.5, -0.5,
-    -0.5,  0.5, -0.5,
-};
-
-static const std::array<GLfloat, 12> rightVertex = {
-    // right
-    0.5,  0.5,  0.5,
-    0.5, -0.5,  0.5,
-    0.5, -0.5, -0.5,
-    0.5,  0.5, -0.5,
-};
-
-static const std::array<GLfloat, 12> leftVertex = {
-    // left
-    -0.5,  0.5, -0.5,
-    -0.5, -0.5, -0.5,
-    -0.5, -0.5,  0.5,
-    -0.5,  0.5,  0.5,
-};
-
-static const std::array<GLfloat, 12> topVertex = {
-    // top
-    -0.5,  0.5, -0.5,
-    -0.5,  0.5,  0.5,
-    0.5,  0.5,  0.5,
-    0.5,  0.5, -0.5,
-};
-
-static const std::array<GLfloat, 12> bottomVertex = {
-    // bottom
-    -0.5, -0.5,  0.5,
-    -0.5, -0.5, -0.5,
-    0.5, -0.5, -0.5,
-    0.5, -0.5,  0.5,
-};
-
 struct AdjacentPositions
 {
     Vector3i front;
@@ -141,13 +93,13 @@ void ChunkMesh::Builder::build()
 
         adjacPositions.update(position);
 
-        addSurface(frontVertex,  data.texSideCoord, position, adjacPositions.front);
-        addSurface(backVertex,   data.texSideCoord, position, adjacPositions.back);
-        addSurface(rightVertex,  data.texSideCoord, position, adjacPositions.right);
-        addSurface(leftVertex,   data.texSideCoord, position, adjacPositions.left);
+        addSurface(CUBE_FRONT_VERTEX_POSITION,  data.texSideCoord, position, adjacPositions.front);
+        addSurface(CUBE_BACK_VERTEX_POSITION,   data.texSideCoord, position, adjacPositions.back);
+        addSurface(CUBE_RIGHT_VERTEX_POSITION,  data.texSideCoord, position, adjacPositions.right);
+        addSurface(CUBE_LEFT_VERTEX_POSITION,   data.texSideCoord, position, adjacPositions.left);
 
-        addSurface(topVertex,    data.texTopCoord,    position, adjacPositions.top);
-        addSurface(bottomVertex, data.texBottomCoord, position, adjacPositions.bottom);
+        addSurface(CUBE_TOP_VERTEX_POSITION,    data.texTopCoord,    position, adjacPositions.top);
+        addSurface(CUBE_BOTTOM_VERTEX_POSITION, data.texBottomCoord, position, adjacPositions.bottom);
     }
 }
 

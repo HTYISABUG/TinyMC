@@ -27,7 +27,7 @@ QuadRenderer::QuadRenderer() :
         2, 3, 0
     };
 
-    _model.addData({vertexPosition, textureCoords, indices});
+    _model.addData(TextureMesh(vertexPosition, textureCoords, indices));
 }
 
 void QuadRenderer::add(const Vector3 &pos)
