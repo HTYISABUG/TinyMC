@@ -34,3 +34,8 @@ Matrix4 makeProjectionMatrix(float fov)
 {
     return perspective(radians(fov), WIDTH / HEIGHT, 0.1f, 1000.f);
 }
+
+Matrix4 makeUiProjectionMatrix()
+{
+    return ortho(0.f, WIDTH, 0.f, HEIGHT);
+}

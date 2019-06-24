@@ -6,15 +6,16 @@
 class BasicShader : public AbstractShader
 {
 public:
-    BasicShader(const std::string vertexFile = "basic.vert",
-                const std::string fragmentFile = "basic.frag");
+    BasicShader(const std::string &vertexFile = "basic.vert",
+                const std::string &fragmentFile = "basic.frag");
 
     void loadProjectionViewMatrix(const Matrix4 &matrix);
     void loadModelMatrix(const Matrix4 &matrix);
 
-private:
+protected:
     void getUniforms() override;
 
+private:
     GLuint _locationProjectionViewMatrix;
     GLuint _locationModelMatrix;
 };

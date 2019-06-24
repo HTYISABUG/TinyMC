@@ -17,6 +17,12 @@ void RenderManager::render(const Camera &camera)
     _quadRenderer.render(camera);
     _cubeRenderer.render(camera);
     _chunkRenderer.render(camera);
+
+    // 2D render
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_CULL_FACE);
+
+    _uiRenderer.render();
 }
 
 void RenderManager::addQuad(const Vector3 &pos)
@@ -32,4 +38,9 @@ void RenderManager::addCube(const Vector3 &pos)
 void RenderManager::addChunk(const ChunkMesh &chunkMesh)
 {
     _chunkRenderer.add(chunkMesh);
+}
+
+void RenderManager::addUi(const ColorMesh &mesh)
+{
+    _uiRenderer.add(mesh);
 }

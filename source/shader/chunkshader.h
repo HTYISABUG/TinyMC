@@ -6,14 +6,15 @@
 class ChunkShader : public AbstractShader
 {
 public:
-    ChunkShader(const std::string vertexFile = "chunk.vert",
-                const std::string fragmentFile = "chunk.frag");
+    ChunkShader(const std::string &vertexFile = "chunk.vert",
+                const std::string &fragmentFile = "chunk.frag");
 
     void loadProjectionViewMatrix(const Matrix4 &matrix);
 
-private:
+protected:
     void getUniforms() override;
 
+private:
     GLuint _locationProjectionViewMatrix;
 };
 

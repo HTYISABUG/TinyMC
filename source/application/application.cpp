@@ -14,6 +14,11 @@ int Application::exec()
     auto window = context.window();
 
     camera.attachEntity(player);
+    manager.addUi({
+        {0, 0, 0, 100, 100, 100, 100, 0},
+        {0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
+        {0, 1, 2, 2, 3, 0},
+    });
 
     do {
         auto ts = glfwGetTime();

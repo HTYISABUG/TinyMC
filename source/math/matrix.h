@@ -9,5 +9,6 @@ class Camera;
 Matrix4 makeModelMatrix(const Entity &entity);
 Matrix4 makeViewMatrix(const Camera &camera);
 Matrix4 makeProjectionMatrix(float fov);
+Matrix4 makeUiProjectionMatrix();
 
 #endif // MATRIX_H

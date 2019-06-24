@@ -9,17 +9,18 @@
 class ChunkMesh
 {
 public:
-    void addSurface(const std::array<GLfloat, 12> &vertexPositions,
-                    const std::array<GLfloat,  8> &textureCoords,
-                    const VectorXZi &chunkLocation,
-                    const Vector3i  &blockPosition);
+    class Builder;
+
     void bufferMesh();
 
     const TextureModel3D &model() const;
 
-    class Builder;
-
 private:
+    void addSurface(const std::array<GLfloat, 12> &vertexPositions,
+                    const std::array<GLfloat,  8> &textureCoords,
+                    const VectorXZi &chunkLocation,
+                    const Vector3i  &blockPosition);
+
     TextureMesh  _mesh;
     TextureModel3D _model;
 
