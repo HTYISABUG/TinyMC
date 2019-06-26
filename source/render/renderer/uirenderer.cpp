@@ -1,10 +1,11 @@
 #include "uirenderer.h"
 #include "render/mesh.h"
 #include "math/matrix.h"
+#include "ui/ui.h"
 
-void UiRenderer::add(const ColorMesh &mesh)
+void UiRenderer::add(const Ui &ui)
 {
-    _model.addData(mesh);
+    _uis.push_back(&ui);
 }
 
 void UiRenderer::render()
@@ -12,7 +13,10 @@ void UiRenderer::render()
     _shader.useProgram();
     _shader.loadProjectionMatrix(makeUiProjectionMatrix());
 
-    _model.bindVAO();
+    for (auto ui : _uis) {
+        ui->model().bindVAO();
+        glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(ui->model().indicesCount()), GL_UNSIGNED_INT, nullptr);
+    }
 
-    glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(_model.indicesCount()), GL_UNSIGNED_INT, nullptr);
+    _uis.clear();
 }

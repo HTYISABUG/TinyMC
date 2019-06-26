@@ -7,6 +7,6 @@ void ColorModel2D::addData(const AbstractMesh &mesh)
 
     genVAO();
     addVBO(2, colorMesh.vertexPositions);
-    addVBO(3, colorMesh.vertexColors);
+    addVBO(4, colorMesh.vertexColors);
     addEBO(colorMesh.indices);
 }

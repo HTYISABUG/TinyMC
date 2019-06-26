@@ -1,6 +1,8 @@
 #include "application.h"
+#include "ui/inventorybar.h"
 #include <cstdlib>
 #include <GLFW/glfw3.h>
+#include "util.h"
 
 Application::Application(const char *title) :
     context(title),
@@ -14,23 +16,28 @@ int Application::exec()
     auto window = context.window();
 
     camera.attachEntity(player);
-    manager.addUi({
-        {0, 0, 0, 100, 100, 100, 100, 0},
-        {0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
-        {0, 1, 2, 2, 3, 0},
-    });
+
+    glfwSetScrollCallback(window, InventoryBar::scrollCallback);
 
     do {
         auto ts = glfwGetTime();
 
+        // event handler
         glfwPollEvents();
         player.handleEvent(window);
 
+        // render data update
         player.update(glfwGetTime() - ts);
         world.updateChunks();
         camera.update();
 
+        // renderer update
         world.updateRenderer(manager);
+
+        // ui update
+        manager.addUi(InventoryBar::instance());
+
+        // render
         manager.render(camera);
 
         glfwSwapBuffers(window);

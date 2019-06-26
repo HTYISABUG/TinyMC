@@ -12,12 +12,14 @@ class Camera;
 class QuadRenderer
 {
 public:
-    QuadRenderer();
+    friend class RenderManager;
 
     void add(const Vector3 &pos);
     void render(const Camera &camera);
 
 private:
+    QuadRenderer();
+
     std::vector<Vector3> _positions;
 
     TextureModel3D _model;

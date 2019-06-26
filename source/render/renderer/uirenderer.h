@@ -5,17 +5,22 @@
 #include "render/model/colormodel2d.h"
 #include <vector>
 
-struct ColorMesh;
+class Ui;
 class Camera;
 
 class UiRenderer
 {
 public:
-    void add(const ColorMesh &mesh);
+    friend class RenderManager;
+
+    void add(const Ui &ui);
     void render();
 
 private:
-    ColorModel2D _model;
+    UiRenderer() = default;
+
+    std::vector<const Ui *> _uis;
+
     UiShader _shader;
 };
 

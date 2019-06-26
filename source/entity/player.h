@@ -19,7 +19,7 @@ private:
     void mouseMoveEvent(GLFWwindow *window);
     void mousePressEvent(GLFWwindow *window);
 
-    World * const _world;
+    World *_world;
     Vector3 velocity;
 };
 

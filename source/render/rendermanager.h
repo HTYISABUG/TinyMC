@@ -8,6 +8,7 @@
 
 class Camera;
 class ChunkMesh;
+class Ui;
 
 class RenderManager
 {
@@ -17,7 +18,7 @@ public:
     void addQuad(const Vector3 &pos);
     void addCube(const Vector3 &pos);
     void addChunk(const ChunkMesh &chunkMesh);
-    void addUi(const ColorMesh &mesh);
+    void addUi(const Ui &ui);
 
     void render(const Camera &camera);
 

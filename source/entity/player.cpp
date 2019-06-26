@@ -4,7 +4,6 @@
 #include "world/world.h"
 #include <chrono>
 #include <GLFW/glfw3.h>
-#include "util.h"
 
 Player::Player(World *world, const Vector3 &position, const Vector3 &rotation) :
     _world(world)
