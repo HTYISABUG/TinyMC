@@ -15,7 +15,8 @@ constexpr int CHUNK_SIZE = 16,
 
 constexpr int INVENTORY_NUM = 9,
               INVENTORY_BLOCK_SIZE = 64,
-              INVENTORY_BORDER_SIZE = 8;
+              INVENTORY_BORDER_SIZE = 8,
+              INVENTORY_ITEM_SIZE = 40;
 
 const std::array<GLfloat, 12> CUBE_FRONT_VERTEX_POSITION = {
     -0.5,  0.5,  0.5,

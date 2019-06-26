@@ -1,6 +1,6 @@
 #include "inventorybar.h"
-#include "constant.h"
 #include "render/mesh.h"
+#include "world/block/blockmanager.h"
 
 InventoryBar &InventoryBar::instance()
 {
@@ -22,6 +22,12 @@ void InventoryBar::setIndicator(double yoffset)
 }
 
 void InventoryBar::makeMesh()
+{
+    makeMesh2D();
+    makeMesh3D();
+}
+
+void InventoryBar::makeMesh2D()
 {
     static constexpr int lb = WINDOW_WIDTH / 2 - INVENTORY_NUM * INVENTORY_BLOCK_SIZE / 2;
     static constexpr int rb = lb + INVENTORY_NUM * INVENTORY_BLOCK_SIZE;
@@ -144,10 +150,66 @@ void InventoryBar::makeMesh()
                });
     ids_insert();
 
-    _model.addData(mesh);
+    _model2D.addData(mesh);
+}
+
+void InventoryBar::makeMesh3D()
+{
+    static constexpr int lb = WINDOW_WIDTH / 2 - INVENTORY_NUM * INVENTORY_BLOCK_SIZE / 2;
+
+    auto &atlas = BlockManager::instance().textureAtlas();
+
+    std::vector<GLfloat> vertexPositions;
+    std::vector<GLfloat> textureCoords;
+    std::vector<GLuint>  indices;
+
+    for (unsigned i = 0; i < _items.size(); ++i) {
+        if (_items[i] == BlockId::AIR) {
+            continue;
+        }
+
+        const GLfloat base = lb + i * INVENTORY_BLOCK_SIZE;
+
+        std::vector<GLfloat> vp = CUBE_VERTEX_POSITION;
+
+        for (unsigned j = 0; j < vp.size(); j += 3) {
+            vp[j+0] = vp[j+0] * INVENTORY_ITEM_SIZE + base + INVENTORY_BLOCK_SIZE / 2;
+            vp[j+1] = vp[j+1] * INVENTORY_ITEM_SIZE + INVENTORY_BLOCK_SIZE / 2;
+            vp[j+2] = 0;
+        }
+
+        auto &data = BlockManager::instance().getData(_items[i]);
+
+        auto top    = atlas.getTexture(data.texTopCoord);
+        auto side   = atlas.getTexture(data.texSideCoord);
+        auto bottom = atlas.getTexture(data.texBottomCoord);
+
+        std::vector<GLfloat> tc;
+
+        tc.insert(tc.end(), side.begin(),   side.end());
+        tc.insert(tc.end(), side.begin(),   side.end());
+        tc.insert(tc.end(), side.begin(),   side.end());
+        tc.insert(tc.end(), side.begin(),   side.end());
+        tc.insert(tc.end(), top.begin(),    top.end());
+        tc.insert(tc.end(), bottom.begin(), bottom.end());
+
+        std::vector<GLuint> id = CUBE_INDICES;
+
+        std::transform(id.begin(), id.end(), id.begin(), [i](GLuint u) { return u + i * 24; });
+
+        vertexPositions.insert(vertexPositions.end(), vp.begin(), vp.end());
+        textureCoords.insert(textureCoords.end(), tc.begin(), tc.end());
+        indices.insert(indices.end(), id.begin(), id.end());
+    }
+
+    _model3D.addData(TextureMesh(vertexPositions, textureCoords, indices));
 }
 
 InventoryBar::InventoryBar()
 {
+    for (unsigned i = 1; i < static_cast<unsigned>(BlockId::NUM_TYPES) && i - 1 < _items.size(); ++i) {
+        _items[i-1] = static_cast<BlockId>(i);
+    }
+
     makeMesh();
 }

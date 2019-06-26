@@ -37,5 +37,6 @@ Matrix4 makeProjectionMatrix(float fov)
 
 Matrix4 makeUiProjectionMatrix()
 {
-    return ortho(0.f, WIDTH, 0.f, HEIGHT);
+    static auto m = ortho(0.f, WIDTH, 0.f, HEIGHT);
+    return m;
 }

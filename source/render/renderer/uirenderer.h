@@ -2,6 +2,7 @@
 #define UIRENDERER_H
 
 #include "shader/uishader.h"
+#include "shader/basicshader.h"
 #include "render/model/colormodel2d.h"
 #include <vector>
 
@@ -21,7 +22,8 @@ private:
 
     std::vector<const Ui *> _uis;
 
-    UiShader _shader;
+    UiShader _uiShader;
+    BasicShader _basicShader;
 };
 
 #endif // UIRENDERER_H
