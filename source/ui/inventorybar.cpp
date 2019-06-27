@@ -1,6 +1,8 @@
 #include "inventorybar.h"
 #include "render/mesh.h"
 #include "world/block/blockmanager.h"
+#include "math/glm.h"
+#include "util.h"
 
 InventoryBar &InventoryBar::instance()
 {
@@ -11,14 +13,6 @@ InventoryBar &InventoryBar::instance()
 void InventoryBar::scrollCallback(GLFWwindow *, double, double yoffset)
 {
     InventoryBar::instance().setIndicator(yoffset);
-}
-
-void InventoryBar::setIndicator(double yoffset)
-{
-    _indicator += INVENTORY_NUM - yoffset;
-    _indicator %= INVENTORY_NUM;
-
-    makeMesh();
 }
 
 void InventoryBar::makeMesh()
@@ -173,9 +167,19 @@ void InventoryBar::makeMesh3D()
         std::vector<GLfloat> vp = CUBE_VERTEX_POSITION;
 
         for (unsigned j = 0; j < vp.size(); j += 3) {
-            vp[j+0] = vp[j+0] * INVENTORY_ITEM_SIZE + base + INVENTORY_BLOCK_SIZE / 2;
-            vp[j+1] = vp[j+1] * INVENTORY_ITEM_SIZE + INVENTORY_BLOCK_SIZE / 2;
-            vp[j+2] = 0;
+            Vector3 vt(vp[j+0], vp[j+1], vp[j+2]);
+
+            using namespace glm;
+
+            vt = angleAxis(radians(-45.f), Vector3(0, 1, 0)) * vt;
+            vt = angleAxis(radians(25.f),  Vector3(1, 0, 0)) * vt;
+
+            vt.x = vt.x * INVENTORY_ITEM_SIZE + base + INVENTORY_BLOCK_SIZE / 2;
+            vt.y = vt.y * INVENTORY_ITEM_SIZE + INVENTORY_BLOCK_SIZE / 2;
+
+            vp[j+0] = vt.x;
+            vp[j+1] = vt.y;
+            vp[j+2] = vt.z;
         }
 
         auto &data = BlockManager::instance().getData(_items[i]);
@@ -210,6 +214,14 @@ InventoryBar::InventoryBar()
     for (unsigned i = 1; i < static_cast<unsigned>(BlockId::NUM_TYPES) && i - 1 < _items.size(); ++i) {
         _items[i-1] = static_cast<BlockId>(i);
     }
+
+    makeMesh();
+}
+
+void InventoryBar::setIndicator(double yoffset)
+{
+    _indicator += INVENTORY_NUM - yoffset;
+    _indicator %= INVENTORY_NUM;
 
     makeMesh();
 }

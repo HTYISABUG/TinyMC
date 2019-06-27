@@ -13,8 +13,6 @@ public:
 
     static void scrollCallback(GLFWwindow *, double, double yoffset);
 
-    void setIndicator(double yoffset);
-
 protected:
     void makeMesh();
     void makeMesh2D();
@@ -22,6 +20,8 @@ protected:
 
 private:
     InventoryBar();
+
+    void setIndicator(double yoffset);
 
     std::array<BlockId, INVENTORY_NUM> _items;
 
