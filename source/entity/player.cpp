@@ -2,6 +2,7 @@
 #include "math/glm.h"
 #include "math/matrix.h"
 #include "world/world.h"
+#include "ui/inventorybar.h"
 #include <chrono>
 #include <GLFW/glfw3.h>
 
@@ -134,7 +135,10 @@ void Player::mousePressEvent(GLFWwindow *window)
 
     static auto time = now();
 
-    for (auto v = Vector3(0), f = front(); glm::length(v) < maxDistanse; v += 0.1f * f) {
+    auto last = Vector3(0);
+
+    for (auto v = Vector3(0), f = front(); glm::length(v) < maxDistanse; last = v, v += 0.1f * f) {
+        auto lastPosition = glm::round(position + last);
         auto targetPosition = glm::round(position + v);
         auto block = _world->getBlock(targetPosition);
 
@@ -144,8 +148,10 @@ void Player::mousePressEvent(GLFWwindow *window)
                     _world->updateBlock(targetPosition, BlockId::AIR);
                     time = now();
                     break;
-                } else if (pressed(GLFW_MOUSE_BUTTON_RIGHT)) {
-                    // TODO: place block
+                } else if (pressed(GLFW_MOUSE_BUTTON_RIGHT) && glm::distance(Vector3(0), v) > 1) {
+                    auto item = InventoryBar::instance().getItem();
+                    _world->updateBlock(lastPosition, item);
+                    time = now();
                     break;
                 }
             }

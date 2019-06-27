@@ -13,6 +13,8 @@ public:
 
     static void scrollCallback(GLFWwindow *, double, double yoffset);
 
+    BlockId getItem() const;
+
 protected:
     void makeMesh();
     void makeMesh2D();

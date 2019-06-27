@@ -15,6 +15,11 @@ void InventoryBar::scrollCallback(GLFWwindow *, double, double yoffset)
     InventoryBar::instance().setIndicator(yoffset);
 }
 
+BlockId InventoryBar::getItem() const
+{
+    return _items[_indicator];
+}
+
 void InventoryBar::makeMesh()
 {
     makeMesh2D();

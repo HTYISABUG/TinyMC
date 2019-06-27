@@ -26,8 +26,6 @@ void UiRenderer::render()
         ui->model2D().bindVAO();
         glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(ui->model2D().indicesCount()), GL_UNSIGNED_INT, nullptr);
 
-
-        glEnable(GL_DEPTH_TEST);
         glEnable(GL_CULL_FACE);
 
         _basicShader.useProgram();
