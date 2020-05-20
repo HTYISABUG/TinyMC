@@ -24,3 +24,5 @@ target_link_libraries(
     ${OpenCV_LIBS}
     nlohmann_json::nlohmann_json
 )
+
+file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
